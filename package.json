@@ -1,0 +1,40 @@
+{
+    "name": "cordova-plugin-AdsManager-Maio",
+    "version": "0.0.1",
+    "description": "Plugin to show ad",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Mtech Access Ltd.",
+    "license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/wtanuw/cordova-adsmanager-maio.git"
+    },
+    "keywords": [
+      "ecosystem:cordova",
+      "cordova-ios",
+      "cordova",
+      "context",
+      "menu",
+      "plugin"
+    ],
+    "bugs": {
+      "url": ""
+    },
+    "homepage": "",
+    "cordova": {
+      "id": "cordova-plugin-adsmanager-maio",
+      "platforms": [
+        "ios"
+      ]
+    },
+    "engines": [
+      {
+        "name": "cordova-ios",
+        "version": ">=4.0.0"
+      }
+    ],
+    "directories": {
+    }
+  }
