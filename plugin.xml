@@ -20,7 +20,7 @@
     xmlns:rim="http://www.blackberry.com/ns/widgets"
     xmlns:android="http://schemas.android.com/apk/res/android"
     id="cordova-plugin-wt-adsmanager-maio"
-    version="0.0.1">
+    version="0.0.2">
     <name>AdsmanagerMaio</name>
     <description>Cordova Adsmanager Maio Plugin</description>
     <license>Apache 2.0</license>
