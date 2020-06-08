@@ -20,7 +20,7 @@
     xmlns:rim="http://www.blackberry.com/ns/widgets"
     xmlns:android="http://schemas.android.com/apk/res/android"
     id="cordova-plugin-wt-adsmanager-maio"
-    version="0.0.2">
+    version="0.0.3">
     <name>AdsmanagerMaio</name>
     <description>Cordova Adsmanager Maio Plugin</description>
     <license>Apache 2.0</license>
@@ -50,9 +50,10 @@
         <framework src="src/ios/Maio.framework" custom="true"/>
         
         <dependency id="cordova-plugin-wkwebview-engine" />
+        <dependency id="cordova-plugin-admobpro" />
         
         <config-file target="*-Info.plist" parent="NSBluetoothAlwaysUsageDescription">
-          <string>"Want to send data between user device."</string>
+          <string>Want to send data between user device.</string>
         </config-file>
         
     </platform>
