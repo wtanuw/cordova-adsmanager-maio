@@ -50,5 +50,5 @@
         <framework src="src/ios/Maio.framework" custom="true"/>
 
     </platform>
-
+    <dependency id="cordova-plugin-wkwebview-engine" />
 </plugin>

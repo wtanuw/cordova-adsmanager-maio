@@ -1,19 +1,13 @@
 
-// maio から発行されるメディアIDに差し替えてください。
-// NSString * const MEDIA_EID = @"m930e10957e5ff326efc142612c560b86"; // Interstitial Ad (Media ID)
-// // NSString * const MEDIA_EID = @"m71f98992e35cdb7c2320997ab8fe3c89" // Video Ad (Media ID)
-// NSString * const ZONE_EID1 = @"za865d86d7f0df710a5499fa58cff2cad" // Interstitial Ad (Zone ID)
-// NSString * const ZONE_EID2 = @"zc1fdb68b07f3548122476c24139690a1" // Video Ad (Zone ID)
-// NSString * const ZONE_EID3 = @"za865d86d7f0df710a5499fa58cff2cad" // Interstitial Ad (Zone ID)
+// maio
 
+NSString * const Video_MEDIA_EID = @""; // Video Ad (Media ID)
+NSString * const Video_ZONE_EID2 = @""; // Video Ad (Zone ID)
 
-NSString * const Video_MEDIA_EID = @"m33acff8be05f17909e2acec2e4659a37"; // Video Ad (Media ID)
-NSString * const Video_ZONE_EID2 = @"z98aad627fa659dd23ef0f7b3b7d1cee8"; // Video Ad (Zone ID)
+ NSString * const Int_MEDIA_EID = @""; // Interstitial Ad (Media ID)
+NSString * const Int_ZONE_EID1 = @""; // Interstitial Ad (Zone ID)
 
- NSString * const Int_MEDIA_EID = @"m8032b791f852c97bfa93574494aaca47"; // Interstitial Ad (Media ID)
-NSString * const Int_ZONE_EID1 = @"z2a285eff718d97be0e6717063c98d098"; // Interstitial Ad (Zone ID)
-
-#import "CDVAdsManager.h"
+#import "CDVAdsManagerMaio.h"
 #import <Maio/Maio.h>
 
 @interface CDVAdsManager()<MaioDelegate>
