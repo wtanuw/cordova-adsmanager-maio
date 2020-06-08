@@ -44,8 +44,8 @@
             </feature>
         </config-file>
 
-        <header-file src="src/CDVAdsManagerMaio.h" />
-        <source-file src="src/CDVAdsManagerMaio.m" />
+        <header-file src="src/ios/CDVAdsManagerMaio.h" />
+        <source-file src="src/ios/CDVAdsManagerMaio.m" />
 
         <framework src="src/ios/Maio.framework" custom="true"/>
 
