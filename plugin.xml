@@ -48,7 +48,12 @@
         <source-file src="src/ios/CDVAdsManagerMaio.m" />
 
         <framework src="src/ios/Maio.framework" custom="true"/>
-
+        
+        <dependency id="cordova-plugin-wkwebview-engine" />
+        
+        <config-file target="*-Info.plist" parent="NSBluetoothAlwaysUsageDescription">
+          <string>"Want to send data between user device."</string>
+        </config-file>
+        
     </platform>
-    <dependency id="cordova-plugin-wkwebview-engine" />
 </plugin>
