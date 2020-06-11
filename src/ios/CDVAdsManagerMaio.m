@@ -730,4 +730,94 @@ adsManagerExport.showMaioRewardVideo = function(successCallback, failureCallback
 //    [self fireAdErrorEvent:EVENT_AD_FAILLOAD withCode:(int)error.code withMsg:[error localizedDescription] withType:ADTYPE_REWARDVIDEO];
 //}
 
+#import "ImobileSdkAds/ImobileSdkAds.h"
+#define IMOBILE_BANNER_PID     @"34816"
+#define IMOBILE_BANNER_MID     @"135179"
+#define IMOBILE_BANNER_SID     @"342414"
+
+
+-(void)viewAddAd
+{
+
+            [ImobileSdkAds registerWithPublisherID:IMOBILE_BANNER_PID
+                                           MediaID:IMOBILE_BANNER_MID
+                                            SpotID:IMOBILE_BANNER_SID];
+            [ImobileSdkAds setTestMode:YES];
+            [ImobileSdkAds startBySpotID:IMOBILE_BANNER_SID];
+    //        [ImobileSdkAds showBySpotID:IMOBILE_BANNER_SID
+    //                     ViewController:self
+    //                           Position:CGPointMake(0,200) SizeAdjust:YES];
+    //           UIView* adView = [[UIView alloc] initWithFrame:CGRectMake(0, 150, 300, 250)];
+    //           [[self view] addSubview:adView];
+
+    [ImobileSdkAds showBySpotID:IMOBILE_BANNER_SID View:self.ad SizeAdjust:YES];
+//            [ImobileSdkAds setSpotDelegate:IMOBILE_BANNER_SID delegate:self];
+}
+
+/**
+ 広告の表示が準備完了した際に呼ばれます
+ @param spotId スポットID
+ @param value ImobileSdkAdsReadyResultでの広告の種類を取得することができます。
+ */
+- (void)imobileSdkAdsSpot:(NSString *)spotId didReadyWithValue:(ImobileSdkAdsReadyResult)value
+{
+    NSLog(@"-1");
+}
+
+/**
+ 広告の取得を失敗した際に呼ばれます
+ @param spotId スポットID
+ @param value ImobileSdkAdsFailResultでの失敗理由を取得することができます。
+ */
+- (void)imobileSdkAdsSpot:(NSString *)spotId didFailWithValue:(ImobileSdkAdsFailResult)value
+{
+    NSLog(@"0");
+}
+
+/**
+ 広告の表示要求があった際に、準備が完了していない場合に呼ばれます
+ @param spotId スポットID
+ */
+- (void)imobileSdkAdsSpotIsNotReady:(NSString *)spotId
+{
+    NSLog(@"1");
+}
+
+/**
+ 広告をクリックした際に呼ばれます
+ @param spotId スポットID
+ */
+- (void)imobileSdkAdsSpotDidClick:(NSString *)spotId
+{
+    NSLog(@"2");
+}
+
+/**
+ 広告を閉じた際に呼ばれます(広告の表示がスキップされた場合も呼ばれます)
+ @param spotId スポットID
+ */
+- (void)imobileSdkAdsSpotDidClose:(NSString *)spotId
+{
+    NSLog(@"3");
+}
+
+/**
+ 広告の表示が完了した際に呼ばれます
+ @param spotId スポットID
+ */
+- (void)imobileSdkAdsSpotDidShow:(NSString *)spotId
+{
+    NSLog(@"4");
+}
+
+/**
+ ネイティブ広告の読み込みが完了した際に呼ばれます
+ @param spotId スポットID
+ @param nativeArray 広告リスト
+ */
+- (void)onNativeAdDataReciveCompleted:(NSString *)spotId nativeArray:(NSArray *)nativeArray
+{
+    NSLog(@"5");
+}
 @end
+
