@@ -7,9 +7,12 @@ NSString * const Video_ZONE_EID2 = @""; // Video Ad (Zone ID)
 NSString * const Int_MEDIA_EID = @""; // Interstitial Ad (Media ID)
 NSString * const Int_ZONE_EID1 = @""; // Interstitial Ad (Zone ID)
 
-#define IMOBILE_BANNER_PID     @"34816"
-#define IMOBILE_BANNER_MID     @"135179"
-#define IMOBILE_BANNER_SID     @"342414"
+//#define IMOBILE_BANNER_PID     @"34816"
+//#define IMOBILE_BANNER_MID     @"135179"
+//#define IMOBILE_BANNER_SID     @"342414"
+#define IMOBILE_BANNER_PID     @""
+#define IMOBILE_BANNER_MID     @""
+#define IMOBILE_BANNER_SID     @""
 
 
 
@@ -132,6 +135,7 @@ NSString * const Int_ZONE_EID1 = @""; // Interstitial Ad (Zone ID)
     
 }
 
+- (NSString*) __getProductShortName { return @"Maio"; }
 - (void) fireAdEvent:(NSString*)event withType:(NSString*)adType
 {
     NSString* obj = [self __getProductShortName];
@@ -205,6 +209,8 @@ adsManagerExport.showMaioRewardVideo = function(successCallback, failureCallback
     // Start maio SDK initilization.
     // Change MAIO_MEDIA_ID to media ID from Maio's Dashboard.
     [Maio startWithMediaId: Video_MEDIA_EID delegate: self];
+    
+    [self viewDidLoad];
 }
 - (void)showMaioInterstitialAd:(CDVInvokedUrlCommand*)command
 {
@@ -350,7 +356,7 @@ adsManagerExport.showMaioRewardVideo = function(successCallback, failureCallback
 //    self.rewardVideoAdId = nil;
 //}
 //
-- (NSString*) __getProductShortName { return @"Maio"; }
+//- (NSString*) __getProductShortName { return @"Maio"; }
 //
 //- (NSString*) __getTestBannerId {
 //    return TEST_BANNER_ID;
@@ -741,10 +747,9 @@ adsManagerExport.showMaioRewardVideo = function(successCallback, failureCallback
 //}
 
 - (void)viewDidLoad {
-  [super viewDidLoad];
   
   CGRect bannerSize = CGRectMake(0,0,320,50);
-  CGRect screenBannerSize = CGRectMake(0,0,[UISCreen mainScreen].bounds.size.width,ceil(bannerSize.size.height*[UISCreen mainScreen].bounds.size.width/bannerSize.size.width);
+  CGRect screenBannerSize = CGRectMake(0,0,[UIScreen mainScreen].bounds.size.width,ceil(bannerSize.size.height*[UIScreen mainScreen].bounds.size.width/bannerSize.size.width));
 
   // In this case, we instantiate the banner with desired ad size.
   self.bannerView = [[UIView alloc]
@@ -772,9 +777,17 @@ adsManagerExport.showMaioRewardVideo = function(successCallback, failureCallback
 
 - (void)addBannerViewToView:(UIView *)bannerView {
   bannerView.translatesAutoresizingMaskIntoConstraints = NO;
-  UIView *selfViewCon = [self getViewController].view;
+  UIViewController *selfViewCon = [self getViewController];
   [selfViewCon.view addSubview:bannerView];
   [selfViewCon.view addConstraints:@[
+
+      [NSLayoutConstraint constraintWithItem:bannerView
+                                 attribute:NSLayoutAttributeHeight
+                                 relatedBy:NSLayoutRelationEqual
+                                    toItem:nil
+                                 attribute:NSLayoutAttributeNotAnAttribute
+                                multiplier:1
+                                  constant:bannerView.frame.size.height],
     [NSLayoutConstraint constraintWithItem:bannerView
                                attribute:NSLayoutAttributeBottom
                                relatedBy:NSLayoutRelationEqual
@@ -787,6 +800,21 @@ adsManagerExport.showMaioRewardVideo = function(successCallback, failureCallback
                                relatedBy:NSLayoutRelationEqual
                                   toItem:selfViewCon.view
                                attribute:NSLayoutAttributeCenterX
+                              multiplier:1
+                                constant:0],
+    
+    [NSLayoutConstraint constraintWithItem:bannerView
+                                 attribute:NSLayoutAttributeLeading
+                               relatedBy:NSLayoutRelationEqual
+                                  toItem:selfViewCon.view
+                               attribute:NSLayoutAttributeLeading
+                              multiplier:1
+                                constant:0],
+    [NSLayoutConstraint constraintWithItem:bannerView
+                               attribute:NSLayoutAttributeTrailing
+                               relatedBy:NSLayoutRelationEqual
+                                  toItem:selfViewCon.view
+                               attribute:NSLayoutAttributeTrailing
                               multiplier:1
                                 constant:0]
                                 ]];

@@ -20,11 +20,11 @@
     xmlns:rim="http://www.blackberry.com/ns/widgets"
     xmlns:android="http://schemas.android.com/apk/res/android"
     id="cordova-plugin-wt-adsmanager-maio"
-    version="0.1.0">
-    <name>AdsManagerMaio</name>
-    <description>Cordova Adsmanager Maio Plugin</description>
+    version="0.1.1">
+    <name>AdsManagerMaio_iMo</name>
+    <description>Cordova AdsManager Maio+iMobile Plugin</description>
     <license>Apache 2.0</license>
-    <keywords>cordova,adsmanager,maio</keywords>
+    <keywords>cordova,adsmanager,maio,imobile</keywords>
 
     <engines>
             <engine name="cordova-ios" version=">=4.0.0" />
@@ -50,9 +50,8 @@
         <framework src="src/ios/Maio.framework" custom="true"/>
         
         <framework src="src/ios/ImobileSdkAds.framework" custom="true"/>
-        <source-file src="src/ios/libAdapterIMobile.a" framework="true"/>
         <framework src="AdSupport.framework"/>
-        <framework src="SystemConfiguraion.framework"/>
+        <framework src="SystemConfiguration.framework"/>
         <framework src="CoreLocation.framework"/>
         <framework src="WebKit.framework"/>
         
