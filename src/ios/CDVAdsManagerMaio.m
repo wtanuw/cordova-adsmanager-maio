@@ -6,6 +6,18 @@ NSString * const Video_ZONE_EID2 = @""; // Video Ad (Zone ID)
 
  NSString * const Int_MEDIA_EID = @""; // Interstitial Ad (Media ID)
 NSString * const Int_ZONE_EID1 = @""; // Interstitial Ad (Zone ID)
+#define EVENT_AD_LOADED         @"onAdLoaded"
+#define EVENT_AD_FAILLOAD       @"onAdFailLoad"
+#define EVENT_AD_PRESENT        @"onAdPresent"
+#define EVENT_AD_LEAVEAPP       @"onAdLeaveApp"
+#define EVENT_AD_DISMISS        @"onAdDismiss"
+#define EVENT_AD_WILLPRESENT    @"onAdWillPresent"
+#define EVENT_AD_WILLDISMISS    @"onAdWillDismiss"
+
+#define ADTYPE_BANNER           @"banner"
+#define ADTYPE_INTERSTITIAL     @"interstitial"
+#define ADTYPE_NATIVE           @"native"
+#define ADTYPE_REWARDVIDEO      @"rewardvideo"
 
 #import "CDVAdsManagerMaio.h"
 #import <Maio/Maio.h>
