@@ -27,22 +27,22 @@
 
 @interface CDVAdsManagerGenericAdPlugin : CDVAdsManagerPluginExt
 
-- (void) getAdSettings:(CDVInvokedUrlCommand *)command;
-- (void) setOptions:(CDVInvokedUrlCommand *)command;
+// - (void) getAdSettings:(CDVInvokedUrlCommand *)command;
+// - (void) setOptions:(CDVInvokedUrlCommand *)command;
 
-- (void)createBanner:(CDVInvokedUrlCommand *)command;
-- (void)showBanner:(CDVInvokedUrlCommand *)command;
-- (void)showBannerAtXY:(CDVInvokedUrlCommand *)command;
-- (void)hideBanner:(CDVInvokedUrlCommand *)command;
-- (void)removeBanner:(CDVInvokedUrlCommand *)command;
+// - (void)createBanner:(CDVInvokedUrlCommand *)command;
+// - (void)showBanner:(CDVInvokedUrlCommand *)command;
+// - (void)showBannerAtXY:(CDVInvokedUrlCommand *)command;
+// - (void)hideBanner:(CDVInvokedUrlCommand *)command;
+// - (void)removeBanner:(CDVInvokedUrlCommand *)command;
 
-- (void)prepareInterstitial:(CDVInvokedUrlCommand *)command;
-- (void)showInterstitial:(CDVInvokedUrlCommand *)command;
-- (void)removeInterstitial:(CDVInvokedUrlCommand *)command;
-- (void)isInterstitialReady:(CDVInvokedUrlCommand*)command;
+// - (void)prepareInterstitial:(CDVInvokedUrlCommand *)command;
+// - (void)showInterstitial:(CDVInvokedUrlCommand *)command;
+// - (void)removeInterstitial:(CDVInvokedUrlCommand *)command;
+// - (void)isInterstitialReady:(CDVInvokedUrlCommand*)command;
 
-- (void) prepareRewardVideoAd:(CDVInvokedUrlCommand *)command;
-- (void) showRewardVideoAd:(CDVInvokedUrlCommand *)command;
+// - (void) prepareRewardVideoAd:(CDVInvokedUrlCommand *)command;
+// - (void) showRewardVideoAd:(CDVInvokedUrlCommand *)command;
 
 - (void) fireAdEvent:(NSString*)event withType:(NSString*)adType;
 - (void) fireAdErrorEvent:(NSString*)event withCode:(int)errCode withMsg:(NSString*)errMsg withType:(NSString*)adType;
@@ -50,6 +50,8 @@
 @end
 
 @interface CDVAdsManager : CDVAdsManagerGenericAdPlugin
+
+@property (nonatomic,strong) UIView *bannerView;
 
 - (void)initMaioAd:(CDVInvokedUrlCommand*)command;
 - (void)showMaioInterstitialAd:(CDVInvokedUrlCommand*)command;

@@ -51,11 +51,28 @@
         
         <framework src="src/ios/ImobileSdkAds.framework" custom="true"/>
         <source-file src="src/ios/libAdapterIMobile.a" framework="true"/>
+        <framework src="AdSupport.framework"/>
+        <framework src="SystemConfiguraion.framework"/>
+        <framework src="CoreLocation.framework"/>
+        <framework src="WebKit.framework"/>
         
         <dependency id="cordova-plugin-wkwebview-engine" />
         
-        <config-file target="*-Info.plist" parent="NSBluetoothAlwaysUsageDescription">
-          <string>Want to send data between user device.</string>
+        <config-file target="*-Info.plist" parent="NSAppTransportSecurity">
+          <dict>
+              <key>NSAllowsArbitraryLoads</key>
+              <false/>
+              <key>NSExceptionDomains</key>
+              <dict>
+                <key>i-mobile.co.jp</key>
+                <dict>
+                 <key>NSIncludesSubdomains</key>
+                 <true/>
+                 <key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+                 <true/>
+                </dict>
+              </dict>
+          </dict>
         </config-file>
         
         <config-file target="*-Info.plist" parent="NSBluetoothAlwaysUsageDescription">
