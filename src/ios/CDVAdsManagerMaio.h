@@ -1,32 +1,59 @@
 
+#import "PluginAdapterDelegate.h"
+#import <Cordova/CDVPlugin.h>
+#import <Cordova/CDV.h>
 
-#import "GenericAdPlugin.h"
+@protocol CDVAdsManagerPluginAdapterDelegate <NSObject>
 
-@interface CDVAdsManager : GenericAdPlugin
+- (UIView*) getView;
 
-- (void)pluginInitialize;
+- (UIViewController*) getViewController;
 
-- (void) parseOptions:(NSDictionary *)options;
-- (void) __showBanner:(int) position atX:(int)x atY:(int)y;
+- (void) fireEvent:(NSString*)obj event:(NSString*)eventName withData:(NSString*)jsonStr;
 
-- (NSString*) __getProductShortName;
-- (NSString*) __getTestBannerId;
-- (NSString*) __getTestInterstitialId;
+- (void) sendPluginResult:(CDVPluginResult*)result to:(NSString*)callbackId;
 
-- (UIView*) __createAdView:(NSString*)adId;
-- (int) __getAdViewWidth:(UIView*)view;
-- (int) __getAdViewHeight:(UIView*)view;
-- (void) __loadAdView:(UIView*)view;
-- (void) __pauseAdView:(UIView*)view;
-- (void) __resumeAdView:(UIView*)view;
-- (void) __destroyAdView:(UIView*)view;
+@end
 
-- (NSObject*) __createInterstitial:(NSString*)adId;
-- (void) __loadInterstitial:(NSObject*)interstitial;
-- (void) __showInterstitial:(NSObject*)interstitial;
-- (void) __destroyInterstitial:(NSObject*)interstitial;
+@interface CDVAdsManagerPluginExt : CDVPlugin <CDVAdsManagerPluginAdapterDelegate>
 
-- (NSObject*) __prepareRewardVideoAd:(NSString*)adId;
-- (BOOL) __showRewardVideoAd:(NSObject*)rewardvideo;
+@property(nonatomic, retain) id<CDVAdsManagerPluginAdapterDelegate> adapter;
+
+- (UIView*) getView;
+- (UIViewController*) getViewController;
+- (void) fireEvent:(NSString *)obj event:(NSString *)eventName withData:(NSString *)jsonStr;
+- (void) sendPluginResult:(CDVPluginResult *)result to:(NSString *)callbackId;
+
+@end
+
+@interface CDVAdsManagerGenericAdPlugin : CDVAdsManagerPluginExt
+
+- (void) getAdSettings:(CDVInvokedUrlCommand *)command;
+- (void) setOptions:(CDVInvokedUrlCommand *)command;
+
+- (void)createBanner:(CDVInvokedUrlCommand *)command;
+- (void)showBanner:(CDVInvokedUrlCommand *)command;
+- (void)showBannerAtXY:(CDVInvokedUrlCommand *)command;
+- (void)hideBanner:(CDVInvokedUrlCommand *)command;
+- (void)removeBanner:(CDVInvokedUrlCommand *)command;
+
+- (void)prepareInterstitial:(CDVInvokedUrlCommand *)command;
+- (void)showInterstitial:(CDVInvokedUrlCommand *)command;
+- (void)removeInterstitial:(CDVInvokedUrlCommand *)command;
+- (void)isInterstitialReady:(CDVInvokedUrlCommand*)command;
+
+- (void) prepareRewardVideoAd:(CDVInvokedUrlCommand *)command;
+- (void) showRewardVideoAd:(CDVInvokedUrlCommand *)command;
+
+- (void) fireAdEvent:(NSString*)event withType:(NSString*)adType;
+- (void) fireAdErrorEvent:(NSString*)event withCode:(int)errCode withMsg:(NSString*)errMsg withType:(NSString*)adType;
+
+@end
+
+@interface CDVAdsManager : CDVAdsManagerGenericAdPlugin
+
+- (void)initMaioAd:(CDVInvokedUrlCommand*)command;
+- (void)showMaioInterstitialAd:(CDVInvokedUrlCommand*)command;
+- (void)showMaioRewardVideoAd:(CDVInvokedUrlCommand*)command;
 
 @end

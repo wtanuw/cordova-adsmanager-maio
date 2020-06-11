@@ -10,6 +10,121 @@ NSString * const Int_ZONE_EID1 = @""; // Interstitial Ad (Zone ID)
 #import "CDVAdsManagerMaio.h"
 #import <Maio/Maio.h>
 
+@implementation CDVAdsManagerPluginExt
+
+- (UIView*) getView
+{
+    if(self.adapter) return [self.adapter getView];
+    else return self.webView;
+}
+
+- (UIViewController*) getViewController
+{
+    if(self.adapter) return [self.adapter getViewController];
+    else return self.viewController;
+}
+
+- (void) fireEvent:(NSString *)obj event:(NSString *)eventName withData:(NSString *)jsonStr
+{
+    NSLog(@"%@, %@, %@", obj, eventName, jsonStr?jsonStr:@"");
+    
+    if(self.adapter) [self.adapter fireEvent:obj event:eventName withData:jsonStr];
+    else {
+        NSString* js;
+        if(obj && [obj isEqualToString:@"window"]) {
+            js = [NSString stringWithFormat:@"var evt=document.createEvent(\"UIEvents\");evt.initUIEvent(\"%@\",true,false,window,0);window.dispatchEvent(evt);", eventName];
+        } else if(jsonStr && [jsonStr length]>0) {
+            js = [NSString stringWithFormat:@"javascript:cordova.fireDocumentEvent('%@',%@);", eventName, jsonStr];
+        } else {
+            js = [NSString stringWithFormat:@"javascript:cordova.fireDocumentEvent('%@');", eventName];
+        }
+        [self.commandDelegate evalJs:js];
+    }
+}
+
+- (void) sendPluginResult:(CDVPluginResult *)result to:(NSString *)callbackId
+{
+    if(self.adapter) [self.adapter sendPluginResult:result to:callbackId];
+    else {
+        [self.commandDelegate sendPluginResult:result callbackId:callbackId];
+    }
+}
+
+@end
+
+@implementation CDVAdsManagerGenericAdPlugin
+
+- (void) getAdSettings:(CDVInvokedUrlCommand *)command
+{
+
+}
+- (void) setOptions:(CDVInvokedUrlCommand *)command
+{
+
+}
+
+- (void)createBanner:(CDVInvokedUrlCommand *)command
+{
+
+}
+- (void)showBanner:(CDVInvokedUrlCommand *)command
+{
+
+}
+- (void)showBannerAtXY:(CDVInvokedUrlCommand *)command
+{
+    
+}
+- (void)hideBanner:(CDVInvokedUrlCommand *)command
+{
+    
+}
+- (void)removeBanner:(CDVInvokedUrlCommand *)command
+{
+    
+}
+
+- (void)prepareInterstitial:(CDVInvokedUrlCommand *)command
+{
+    
+}
+- (void)showInterstitial:(CDVInvokedUrlCommand *)command
+{
+    
+}
+- (void)removeInterstitial:(CDVInvokedUrlCommand *)command
+{
+    
+}
+- (void)isInterstitialReady:(CDVInvokedUrlCommand*)command
+{
+    
+}
+
+- (void) prepareRewardVideoAd:(CDVInvokedUrlCommand *)command
+{
+    
+}
+- (void) showRewardVideoAd:(CDVInvokedUrlCommand *)command
+{
+    
+}
+
+- (void) fireAdEvent:(NSString*)event withType:(NSString*)adType
+{
+    NSString* obj = [self __getProductShortName];
+    NSString* json = [NSString stringWithFormat:@"{'adNetwork':'%@','adType':'%@','adEvent':'%@'}",
+                      obj, adType, event];
+    [self fireEvent:obj event:event withData:json];
+}
+
+- (void) fireAdErrorEvent:(NSString*)event withCode:(int)errCode withMsg:(NSString*)errMsg withType:(NSString*)adType
+{
+
+}
+
+@end
+
 @interface CDVAdsManager()<MaioDelegate>
 
 //@property (assign) GADAdSize adSize;
@@ -33,6 +148,20 @@ NSString * const Int_ZONE_EID1 = @""; // Interstitial Ad (Zone ID)
 @end
 
 @implementation CDVAdsManager
+
+- (void)myMethod:(CDVInvokedUrlCommand*)command
+{
+    CDVPluginResult* pluginResult = nil;
+    NSString* myarg = [command.arguments objectAtIndex:0];
+
+    if (myarg != nil) {
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+    } else {
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Arg was null"];
+    }
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
 /*
 adsManagerExport.initMaioAds = function(successCallback, failureCallback) {
     cordova.exec(successCallback, failureCallback, "AdsManager", "initMaioAd", []);
@@ -46,7 +175,7 @@ adsManagerExport.showMaioRewardVideo = function(successCallback, failureCallback
     cordova.exec(successCallback, failureCallback, "AdsManager", "showMaioRewardVideoAd", []);
 };
 */
-- (void)initMaioAd:(NSString*)adId
+- (void)initMaioAd:(CDVInvokedUrlCommand*)command
 {
     // Sets SDK to test mode. Comment out when it is time to release your app.
     [Maio setAdTestMode: YES];
@@ -55,7 +184,7 @@ adsManagerExport.showMaioRewardVideo = function(successCallback, failureCallback
     // Change MAIO_MEDIA_ID to media ID from Maio's Dashboard.
     [Maio startWithMediaId: Video_MEDIA_EID delegate: self];
 }
-- (void)showMaioInterstitialAd:(NSString*)adId
+- (void)showMaioInterstitialAd:(CDVInvokedUrlCommand*)command
 {
     if([Maio canShow]) {
         [Maio startWithNonDefaultMediaId:Int_MEDIA_EID delegate:self];
@@ -64,7 +193,7 @@ adsManagerExport.showMaioRewardVideo = function(successCallback, failureCallback
         [self maioDidFail:Int_ZONE_EID1 reason:MaioFailReasonUnknown];
     }
 }
-- (void)showMaioRewardVideoAd:(NSString*)adId
+- (void)showMaioRewardVideoAd:(CDVInvokedUrlCommand*)command
 {
     if([Maio canShow]) {
         [Maio startWithNonDefaultMediaId:Video_MEDIA_EID delegate:self];
@@ -74,6 +203,7 @@ adsManagerExport.showMaioRewardVideo = function(successCallback, failureCallback
     }
 }
 
+#pragma mark - MaioDelegate
 
 // Press button to show ad.
 - (IBAction) onOpenAd : (id) sender {
@@ -198,7 +328,7 @@ adsManagerExport.showMaioRewardVideo = function(successCallback, failureCallback
 //    self.rewardVideoAdId = nil;
 //}
 //
-//- (NSString*) __getProductShortName { return @"AdMob"; }
+- (NSString*) __getProductShortName { return @"Maio"; }
 //
 //- (NSString*) __getTestBannerId {
 //    return TEST_BANNER_ID;
